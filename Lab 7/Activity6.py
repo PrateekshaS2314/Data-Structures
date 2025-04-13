@@ -7,16 +7,19 @@ class Node:
 # Queue class using singly linked list
 class Queue:
     def __init__(self):
-        self.front = self.rear = None
+        self.front = None 
+        self.rear = None
 
     # Enqueue operation
     def enqueue(self, data):
-        new_node = Node(data)
-        if self.rear is None:  # If queue is empty
-            self.front = self.rear = new_node
-        else:
-            self.rear.next = new_node
-            self.rear = new_node
+         new_node = Node(data)
+         if self.rear is None:
+             self.front = self.rear = new_node
+             print(f"new node: {new_node.data}")
+             return
+         else:
+             self.rear.next = new_node
+             self.rear = new_node
 
     # Return front node data without removing
     def Front(self):
