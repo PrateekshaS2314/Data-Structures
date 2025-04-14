@@ -8,6 +8,24 @@ class BinaryTree:
     def __init__(self): 
         self.root = None 
 
+    def insert(self, data):
+        if not self.root:
+            self.root = TreeNode(data)
+        else:
+            self._insert_recursive(self.root, data)
+
+    def _insert_recursive(self, current, data):
+        if data < current.data:
+            if current.left:
+                self._insert_recursive(current.left, data)
+            else:
+                current.left = TreeNode(data)
+        else:
+            if current.right:
+                self._insert_recursive(current.right, data)
+            else:
+                current.right = TreeNode(data)
+
     def find_grandchildren(self, node): 
         if not node: 
             return [] 
@@ -27,7 +45,7 @@ class BinaryTree:
             children_values.append(parent.right.data)
         return children_values 
 
-# Helper function to find a node by value
+# Helper function to find a node by its value
 def find_node(current, node_value): 
     if current is None: 
         return None 
@@ -38,7 +56,7 @@ def find_node(current, node_value):
         return left_node 
     return find_node(current.right, node_value) 
 
-# Function to find grandchildren of a node by value
+# Function to find grandchildren of a node by its value
 def find_grandchildren_values(bt, node_value): 
     node = find_node(bt.root, node_value) 
     if node: 
@@ -46,22 +64,14 @@ def find_grandchildren_values(bt, node_value):
     else: 
         return [] 
 
-# Example usage: 
-bt = BinaryTree() 
-# Constructing the binary tree 
-bt.root = TreeNode(1) 
-bt.root.left = TreeNode(2) 
-bt.root.right = TreeNode(3) 
-bt.root.left.left = TreeNode(4) 
-bt.root.left.right = TreeNode(5) 
-bt.root.right.left = TreeNode(6) 
-bt.root.right.right = TreeNode(7) 
+# Example usage
+bt = BinaryTree()
 
-# Testing the function with various nodes
-print("Grandchildren of node 1:", find_grandchildren_values(bt, 1))
-print("Grandchildren of node 2:", find_grandchildren_values(bt, 2))
-print("Grandchildren of node 3:", find_grandchildren_values(bt, 3))
-print("Grandchildren of node 4:", find_grandchildren_values(bt, 4))
-print("Grandchildren of node 5:", find_grandchildren_values(bt, 5))
-print("Grandchildren of node 6:", find_grandchildren_values(bt, 6))
-print("Grandchildren of node 7:", find_grandchildren_values(bt, 7))
+# Insert the specified nodes
+nodes_to_insert = [50, 30, 70, 20, 40, 60, 80, 15, 25, 35, 45, 65, 75, 85]
+for value in nodes_to_insert:
+    bt.insert(value)
+
+# Find and print grandchildren of node 30
+grandchildren_30 = find_grandchildren_values(bt, 30)
+print("Grandchildren of node 30:", grandchildren_30)
