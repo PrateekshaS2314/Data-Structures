@@ -13,9 +13,10 @@ class CircularLinkedList:
         else:
             curr = self.head
             while curr.next != self.head:
-                curr.next = new_node
-                new_node = self.head
-                self.head = new_node
+                curr = curr.next
+            curr.next = new_node
+            new_node.next = self.head
+            self.head = new_node
     def traverse(self):
         if self.head is None:
             print("CLL is empty")
@@ -30,4 +31,8 @@ class CircularLinkedList:
             print()
 cll = CircularLinkedList()
 cll.insert_at_beginning(10)
+cll.insert_at_beginning(20)
+cll.insert_at_beginning(30)
+
+
 cll.traverse()
